@@ -18,3 +18,10 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 # Modify hostname
 sed -i 's/OpenWrt/M28C/g' package/base-files/files/bin/config_generate
+# Add the QModem feed source
+echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
+# Update and install the feed packages
+./scripts/feeds update qmodem
+./scripts/feeds install -a -p qmodem
+# (Optional) Force install to overwrite existing drivers/apps
+./scripts/feeds install -a -f -p qmodem
